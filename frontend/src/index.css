@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #070B14;
+    color: #E2E8F0;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #0D1526; }
+  ::-webkit-scrollbar-thumb { background: #1E2D45; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.3); }
+
+  ::selection { background: rgba(0, 212, 255, 0.2); color: #E2E8F0; }
+}
+
+@layer components {
+  /* ── Glass Surfaces ── */
+  .glass {
+    background: rgba(13, 21, 38, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(30, 45, 69, 0.8);
+  }
+  .glass-dark {
+    background: rgba(7, 11, 20, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(30, 45, 69, 0.6);
+  }
+
+  /* ── Text ── */
+  .text-gradient {
+    background: linear-gradient(135deg, #00D4FF 0%, #38BDF8 50%, #818CF8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply relative overflow-hidden bg-accent/10 border border-accent/30 text-accent
+    px-6 py-3 rounded-xl font-display font-semibold tracking-wide
+    transition-all duration-300
+    hover:bg-accent/20 hover:border-accent/60 hover:shadow-glow
+    active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-accent/10;
+  }
+  .btn-ghost {
+    @apply bg-transparent border border-border text-soft px-6 py-3 rounded-xl
+    font-body transition-all duration-200
+    hover:border-accent/40 hover:text-bright hover:bg-white/5
+    active:scale-95;
+  }
+  .btn-danger {
+    @apply bg-danger/10 border border-danger/30 text-danger px-4 py-2 rounded-xl
+    transition-all duration-200
+    hover:bg-danger/20 hover:border-danger/60
+    active:scale-95;
+  }
+
+  /* ── Input ── */
+  .input-field {
+    @apply w-full bg-deep/80 border border-border rounded-xl px-4 py-3
+    text-bright placeholder-soft/40 font-body
+    transition-all duration-200
+    focus:outline-none focus:border-accent/50 focus:bg-deep focus:shadow-glow;
+  }
+
+  /* ── Message Bubbles ── */
+  .bubble-sent {
+    background: linear-gradient(135deg, #0EA5E9, #00D4FF);
+    color: #070B14;
+    border-radius: 18px 18px 4px 18px;
+    font-weight: 500;
+  }
+  .bubble-recv {
+    background: rgba(15, 25, 35, 0.95);
+    border: 1px solid rgba(30, 45, 69, 0.9);
+    color: #E2E8F0;
+    border-radius: 18px 18px 18px 4px;
+  }
+
+  /* ── Sidebar User Row ── */
+  .user-row {
+    @apply flex items-center gap-3 p-3 rounded-xl cursor-pointer
+    transition-all duration-150 border border-transparent
+    hover:bg-surface/70 hover:border-border/60;
+  }
+  .user-row.active {
+    @apply bg-accent/5 border-accent/20;
+  }
+
+  /* ── Skeleton ── */
+  .skeleton {
+    background: linear-gradient(90deg, #0D1526 25%, #1A2840 50%, #0D1526 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* ── Dot indicators ── */
+  .online-dot {
+    @apply absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-void bg-success;
+  }
+  .offline-dot {
+    @apply absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-void bg-soft/40;
+  }
+
+  /* ── Grid Background ── */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .grid-bg-sm {
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+}
+
+/* ── Typing animation ── */
+.typing-dot {
+  animation: typingBounce 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+  30% { transform: translateY(-7px); opacity: 1; }
+}
+
+/* ── Scan line (decorative) ── */
+@keyframes scanLine {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+.scan-line {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.15), transparent);
+  animation: scanLine 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
