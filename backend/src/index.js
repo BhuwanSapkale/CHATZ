@@ -17,8 +17,8 @@ const httpServer = createServer(app);
 export const io = new Server(httpServer, {
   cors: {
     origin: 'http://localhost:5173',
-    credentials: true, "http://localhost:5173",
-    "https://your-vercel-app.vercel.app"
+    credentials: true, 
+   
   },
 });
 
