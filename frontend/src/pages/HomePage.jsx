@@ -69,8 +69,13 @@ const HomePage = () => {
       {/* <div className="scan-line" /> */}
       <Navbar />
       <div className="flex flex-1 overflow-hidden pt-14">
-        <Sidebar />
-        <main className="flex-1 flex flex-col overflow-hidden relative">
+        {/* Sidebar wrapper: full width on mobile if no user is selected; hidden on mobile if a user is selected */}
+        <div className={`h-full flex-shrink-0 ${selectedUser ? 'hidden md:flex md:w-72' : 'flex w-full md:w-72'}`}>
+          <Sidebar />
+        </div>
+        
+        {/* Main chat panel wrapper: hidden on mobile if no user is selected; visible on mobile if a user is selected */}
+        <main className={`flex-1 flex flex-col overflow-hidden relative ${!selectedUser ? 'hidden md:flex' : 'flex'}`}>
           {selectedUser ? <ChatContainer /> : <WelcomeScreen />}
         </main>
       </div>

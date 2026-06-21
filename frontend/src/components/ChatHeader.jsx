@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { useChatStore } from '../store/useChatStore.js';
 import { useAuthStore } from '../store/useAuthStore.js';
 import Avatar from './Avatar.jsx';
-import { X, Phone, Video, Info } from 'lucide-react';
+import { X, Phone, Video, Info, ArrowLeft } from 'lucide-react';
 
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
@@ -21,6 +21,15 @@ const ChatHeader = () => {
 
   return (
     <div ref={headerRef} className="flex items-center gap-3 px-5 py-3 border-b border-border glass-dark">
+      {/* Mobile back button */}
+      <button
+        onClick={() => setSelectedUser(null)}
+        className="md:hidden p-1.5 -ml-1 rounded-lg text-soft hover:text-bright hover:bg-surface/60 transition-all flex items-center justify-center"
+        title="Back to messages"
+      >
+        <ArrowLeft size={16} />
+      </button>
+
       <Avatar user={selectedUser} size="md" showOnline isOnline={isOnline} />
 
       <div className="flex-1 min-w-0">

@@ -41,7 +41,7 @@ const Sidebar = () => {
   });
 
   return (
-    <aside className="w-72 flex-shrink-0 flex flex-col glass border-r border-border h-full overflow-hidden">
+    <aside className="w-full h-full flex flex-col glass border-r border-border overflow-hidden">
       {/* ── Header ── */}
       <div className="p-4 border-b border-border space-y-3">
         <div className="flex items-center justify-between">
