@@ -38,7 +38,7 @@ const Message = ({ msg, authUser, prevMsg }) => {
       {/* Avatar placeholder to keep alignment */}
       <div className="w-9 flex-shrink-0">
         {!isMine && showAvatar && (
-          <Avatar user={{ _id: msg.senderId }} size="sm" />
+          <Avatar user={selectedUser} size="sm" />
         )}
       </div>
 

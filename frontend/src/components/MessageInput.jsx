@@ -9,6 +9,7 @@ const MessageInput = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const fileRef = useRef(null);
   const sendRef = useRef(null);
+  const textareaRef = useRef(null);
   const { sendMessage } = useChatStore();
 
   const handleFile = (e) => {
@@ -37,6 +38,7 @@ const MessageInput = () => {
     setText('');
     setImagePreview(null);
     if (fileRef.current) fileRef.current.value = '';
+    if (textareaRef.current) textareaRef.current.style.height = 'auto';
   };
 
   const canSend = text.trim() || imagePreview;
@@ -71,6 +73,7 @@ const MessageInput = () => {
 
         {/* Text area */}
         <textarea
+          ref={textareaRef}
           value={text}
           onChange={(e) => {
             setText(e.target.value);
