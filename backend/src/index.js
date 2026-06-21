@@ -17,7 +17,10 @@ const httpServer = createServer(app);
 const allowedOrigins = [
   'http://localhost:5173',
   process.env.CLIENT_URL,
-].filter(Boolean);
+].filter(Boolean).map(url => {
+  const clean = url.trim().replace(/\/$/, "");
+  return /^https?:\/\//i.test(clean) ? clean : `https://${clean}`;
+});
 
 const checkOrigin = (origin, callback) => {
   if (!origin) return callback(null, true);
