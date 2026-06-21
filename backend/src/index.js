@@ -19,10 +19,23 @@ const allowedOrigins = [
   process.env.CLIENT_URL,
 ].filter(Boolean);
 
+const checkOrigin = (origin, callback) => {
+  if (!origin) return callback(null, true);
+  const cleanOrigin = origin.replace(/\/$/, "");
+  const isAllowed = allowedOrigins.some(allowed => allowed.replace(/\/$/, "") === cleanOrigin);
+  
+  if (isAllowed) {
+    callback(null, true);
+  } else {
+    console.warn(`⚠️ [CORS Blocked] Origin: "${origin}" is not in allowed list:`, allowedOrigins);
+    callback(new Error('Not allowed by CORS'));
+  }
+};
+
 // ─── Socket.io Setup ───────────────────────────────────────────────────────────
 export const io = new Server(httpServer, {
   cors: {
-    origin: allowedOrigins,
+    origin: checkOrigin,
     credentials: true, 
   },
 });
@@ -50,7 +63,7 @@ io.on('connection', (socket) => {
 
 // ─── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: allowedOrigins,
+  origin: checkOrigin,
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
