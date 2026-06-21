@@ -18,7 +18,7 @@ const SkeletonMsg = ({ mine }) => (
 );
 
 // ─── Single Message ─────────────────────────────────────────────────────────────
-const Message = ({ msg, authUser, prevMsg }) => {
+const Message = ({ msg, authUser, prevMsg, selectedUser }) => {
   const isMine = msg.senderId === authUser._id;
   const ref = useRef(null);
 
@@ -132,6 +132,7 @@ const ChatContainer = () => {
                     msg={msg}
                     authUser={authUser}
                     prevMsg={i > 0 ? msgs[i - 1] : null}
+                    selectedUser={selectedUser}
                   />
                 ))}
               </div>
